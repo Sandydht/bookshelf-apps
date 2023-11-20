@@ -98,11 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (bookObject.isCompleted) {
       bookshelfItemActionButtonSuccess.addEventListener('click', () => {
-        console.log('is completed');
+        addBookToUncompletedList(bookObject.id);
       });
     } else {
       bookshelfItemActionButtonSuccess.addEventListener('click', () => {
-        console.log('un completed');
+        addBookToCompleted(bookObject.id);
       });
     }
 
@@ -121,6 +121,24 @@ document.addEventListener('DOMContentLoaded', () => {
     return bookshelfItem;
   }
 
+  function addBookToCompleted(bookId) {
+    const bookTarget = findBook(bookId);
+
+    if (bookTarget == null) return;
+
+    bookTarget.isCompleted = true;
+    document.dispatchEvent(new Event(RENDER_EVENT));
+  }
+
+  function addBookToUncompletedList(bookId) {
+    const bookTarget = findBook(bookId);
+
+    if (bookTarget == null) return;
+
+    bookTarget.isCompleted = false;
+    document.dispatchEvent(new Event(RENDER_EVENT));
+  }
+
   function removeBookFromList(bookId) {
     const bookTarget = findBookIndex(bookId);
 
@@ -128,6 +146,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     books.splice(bookTarget, 1);
     document.dispatchEvent(new Event(RENDER_EVENT));
+  }
+
+  function findBook(bookId) {
+    for (const bookItem of books) {
+      if (bookItem.id === bookId) {
+        return bookItem;
+      }
+    }
+
+    return null;
   }
 
   function findBookIndex(bookId) {
