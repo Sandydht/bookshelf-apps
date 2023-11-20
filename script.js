@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const books = [];
   const RENDER_EVENT = 'render-book';
+  const SAVED_EVENT = 'saved-book';
+  const STORAGE_KEY = 'BOOKSHELF_APPS';
 
   bookshelfTypeElement.innerHTML = '<b>Belum selesai dibaca</b>';
   copyrightYearElement.innerText = new Date().getFullYear();
@@ -48,6 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  document.addEventListener(SAVED_EVENT, () => {
+    console.log(localStorage.getItem(STORAGE_KEY));
+  });
+
+  if (isStorageExist()) {
+    loadDataFromStorage();
+  }
+
   function addBook() {
     const inputTitleValue = document.getElementById('inputTitle').value;
     const inputAuthorValue = document.getElementById('inputAuthor').value;
@@ -65,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     books.push(bookObject);
     
     document.dispatchEvent(new Event(RENDER_EVENT));
+    saveBookData();
   }
 
   function generateID() {
@@ -115,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     } else {
       bookshelfItemActionButtonSuccess.addEventListener('click', () => {
-        addBookToCompleted(bookObject.id);
+        addBookToCompletedList(bookObject.id);
       });
     }
 
@@ -134,13 +145,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return bookshelfItem;
   }
 
-  function addBookToCompleted(bookId) {
+  function addBookToCompletedList(bookId) {
     const bookTarget = findBook(bookId);
 
     if (bookTarget == null) return;
 
     bookTarget.isCompleted = true;
     document.dispatchEvent(new Event(RENDER_EVENT));
+    saveBookData();
   }
 
   function addBookToUncompletedList(bookId) {
@@ -150,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bookTarget.isCompleted = false;
     document.dispatchEvent(new Event(RENDER_EVENT));
+    saveBookData();
   }
 
   function removeBookFromList(bookId) {
@@ -159,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     books.splice(bookTarget, 1);
     document.dispatchEvent(new Event(RENDER_EVENT));
+    saveBookData();
   }
 
   function findBook(bookId) {
@@ -179,5 +193,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     return -1;
+  }
+
+  function saveBookData() {
+    if (isStorageExist()) {
+      const parsed = JSON.stringify(books);
+      localStorage.setItem(STORAGE_KEY, parsed);
+      document.dispatchEvent(new Event(SAVED_EVENT));
+    }
+  }
+
+  function isStorageExist() {
+    if (typeof (Storage) === undefined) {
+      alert('Browser kamu tidak mendukung local storage');
+      return false;
+    }
+
+    return true;
+  }
+
+  function loadDataFromStorage() {
+    const serializedData = localStorage.getItem(STORAGE_KEY);
+    let data = JSON.parse(serializedData);
+
+    if (data !== null) {
+      for (const book of data) {
+        books.push(book);
+      }
+    }
+
+    document.dispatchEvent(new Event(RENDER_EVENT));
   }
 });
