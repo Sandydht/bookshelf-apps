@@ -8,6 +8,62 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <header>
+      <h2>Bookshelf Apps</h2>
+    </header>
+  
+    <main>
+      <div id="notification" class="notification">Some message...</div>
+
+      <form id="formInputBookData" class="form-container">
+        <div class="form-item">
+          <label for="inputTitle" class="form-item-label">Judul</label>
+          <input id="inputTitle" name="title" type="text" class="form-item-input" placeholder="Judul buku..." required />
+        </div>
+        <div class="form-item">
+          <label for="inputAuthor" class="form-item-label">Penulis</label>
+          <input id="inputAuthor" name="author" type="text" class="form-item-input" placeholder="Penulis buku..." required />
+        </div>
+        <div class="form-item">
+          <label for="inputYear" class="form-item-label">Tahun</label>
+          <input id="inputYear" name="year" type="number" class="form-item-input" placeholder="Tahun terbit buku..." required />
+        </div>
+        <div class="form-item">
+          <div class="form-item-checkbox-container">
+            <label for="inputIsCompleted" class="form-item-label">Selesai dibaca</label>
+            <input id="inputIsCompleted" name="isComplete" type="checkbox" class="form-item-checkbox" />
+          </div>
+        </div>
+        <div class="form-item">
+          <button type="submit" class="form-item-submit-button">Masukkan buku ke rak <span id="bookshelfType"></span></button>
+        </div>
+      </form>
+
+      <div class="search-container">
+        <p class="search-container-title">Cari Buku</p>
+        <form id="formSearchBookData" class="form-search-container">
+          <label for="searchTitle" class="form-search-label">Judul</label>
+          <input id="searchTitle" type="search" placeholder="Judul buku..." class="form-search-input" />
+          <button type="submit" class="form-search-submit-button">Cari</button>
+        </form>
+      </div>
+
+      <div id="bookshelfUncompleted" class="bookshelf-container">
+        <p class="bookshelf-container-title">Belum selesai dibaca</p>
+        <div id="bookshelfUncompletedList" class="bookshelf-container-list"></div>
+      </div>
+      <div id="bookshelfCompleted" class="bookshelf-container">
+        <p class="bookshelf-container-title">Selesai dibaca</p>
+        <div id="bookshelfCompletedList" class="bookshelf-container-list"></div>
+      </div>
+    </main>
+  
+    <footer>
+      <p>Copyright © Bookshelf Apps - <span id="copyrightYear"></span></p>
+    </footer>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
