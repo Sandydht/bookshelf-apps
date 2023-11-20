@@ -17,20 +17,20 @@
       <form id="formInputBookData" class="form-container">
         <div class="form-item">
           <label for="inputTitle" class="form-item-label">Judul</label>
-          <input id="inputTitle" type="text" class="form-item-input" placeholder="Judul buku..." />
+          <input id="inputTitle" name="title" type="text" class="form-item-input" placeholder="Judul buku..." required />
         </div>
         <div class="form-item">
           <label for="inputAuthor" class="form-item-label">Penulis</label>
-          <input id="inputAuthor" type="text" class="form-item-input" placeholder="Penulis buku..." />
+          <input id="inputAuthor" name="author" type="text" class="form-item-input" placeholder="Penulis buku..." required />
         </div>
         <div class="form-item">
           <label for="inputYear" class="form-item-label">Tahun</label>
-          <input id="inputYear" type="number" class="form-item-input" placeholder="Tahun terbit buku..." />
+          <input id="inputYear" name="year" type="number" class="form-item-input" placeholder="Tahun terbit buku..." required />
         </div>
         <div class="form-item">
           <div class="form-item-checkbox-container">
-            <label for="inputIsComplete" class="form-item-label">Selesai dibaca</label>
-            <input id="inputIsComplete" type="checkbox" class="form-item-checkbox" />
+            <label for="inputIsCompleted" class="form-item-label">Selesai dibaca</label>
+            <input id="inputIsCompleted" name="isComplete" type="checkbox" class="form-item-checkbox" />
           </div>
         </div>
         <div class="form-item">
@@ -49,35 +49,11 @@
 
       <div id="bookshelfUncompleted" class="bookshelf-container">
         <p class="bookshelf-container-title">Belum selesai dibaca</p>
-        <div id="bookshelfUncompletedList" class="bookshelf-container-list">
-          <div class="bookshelf-item">
-            <div class="bookshelf-item-body">
-              <p class="bookshelf-item-title">Harry Potter</p>
-              <p class="bookshelf-item-description">Penulis: J.K Rowling</p>
-              <p class="bookshelf-item-description">Tahun: 1997</p>
-            </div>
-            <div class="bookshelf-item-action">
-              <button type="button" class="bookshelf-item-action-success">Selesai Dibaca</button>
-              <button type="button" class="bookshelf-item-action-danger">Hapus Buku</button>
-            </div>
-          </div>
-        </div>
+        <div id="bookshelfUncompletedList" class="bookshelf-container-list"></div>
       </div>
       <div id="bookshelfCompleted" class="bookshelf-container">
         <p class="bookshelf-container-title">Selesai dibaca</p>
-        <div id="bookshelfCompletedList" class="bookshelf-container-list">
-          <div class="bookshelf-item">
-            <div class="bookshelf-item-body">
-              <p class="bookshelf-item-title">Harry Potter</p>
-              <p class="bookshelf-item-description">Penulis: J.K Rowling</p>
-              <p class="bookshelf-item-description">Tahun: 1997</p>
-            </div>
-            <div class="bookshelf-item-action">
-              <button type="button" class="bookshelf-item-action-success">Belum Selesai Dibaca</button>
-              <button type="button" class="bookshelf-item-action-danger">Hapus Buku</button>
-            </div>
-          </div>
-        </div>
+        <div id="bookshelfCompletedList" class="bookshelf-container-list"></div>
       </div>
     </main>
   
