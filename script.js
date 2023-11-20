@@ -2,11 +2,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyrightYearElement = document.getElementById('copyrightYear');
   const formInputBookDataElement = document.getElementById('formInputBookData');
   const formSearchBookDataElement = document.getElementById('formSearchBookData');
+  const inputIsCompletedElement = document.getElementById('inputIsCompleted');
+  const bookshelfTypeElement = document.getElementById('bookshelfType');
 
   const books = [];
   const RENDER_EVENT = 'render-book';
 
+  bookshelfTypeElement.innerHTML = '<b>Belum selesai dibaca</b>';
   copyrightYearElement.innerText = new Date().getFullYear();
+
+  inputIsCompletedElement.addEventListener('input', () => {
+    const inputIsCompletedValue = document.getElementById('inputIsCompleted').checked;
+
+    if (inputIsCompletedValue == true) {
+      bookshelfTypeElement.innerHTML = '<b>Selesai dibaca</b>';
+    } else {
+      bookshelfTypeElement.innerHTML = '<b>Belum selesai dibaca</b>';
+    }
+  });
 
   formInputBookDataElement.addEventListener('submit', (event) => {
     event.preventDefault();
