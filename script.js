@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookshelfTypeElement = document.getElementById('bookshelfType');
   const notificationElement = document.getElementById('notification');
 
-  const books = [];
+  let books = [];
   const RENDER_EVENT = 'render-book';
   const SAVED_EVENT = 'saved-book';
   const STORAGE_KEY = 'BOOKSHELF_APPS';
@@ -33,6 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   formSearchBookDataElement.addEventListener('submit', (event) => {
+    const searchTitleValue = document.getElementById('searchTitle').value;
+
+    if (!searchTitleValue) {
+      if (isStorageExist()) {
+        books = [];
+        loadDataFromStorage();
+      }
+    } else {
+      books = books.filter((book) => removeSpaceFromString(book.title).toLowerCase() == removeSpaceFromString(searchTitleValue).toLowerCase());
+    }
+
+    document.dispatchEvent(new Event(RENDER_EVENT));
     event.preventDefault();
   });
 
@@ -236,4 +248,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.dispatchEvent(new Event(RENDER_EVENT));
   }
+
+  function removeSpaceFromString(string) {
+    return string.replace(/\s/g, '');
+};
 });
