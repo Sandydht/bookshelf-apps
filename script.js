@@ -4,11 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const formSearchBookDataElement = document.getElementById('formSearchBookData');
   const inputIsCompletedElement = document.getElementById('inputIsCompleted');
   const bookshelfTypeElement = document.getElementById('bookshelfType');
+  const notificationElement = document.getElementById('notification');
 
   const books = [];
   const RENDER_EVENT = 'render-book';
   const SAVED_EVENT = 'saved-book';
   const STORAGE_KEY = 'BOOKSHELF_APPS';
+  let notificationMessage = '';
 
   bookshelfTypeElement.innerHTML = '<b>Belum selesai dibaca</b>';
   copyrightYearElement.innerText = new Date().getFullYear();
@@ -27,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     addBook();
     formInputBookDataElement.reset();
+    bookshelfTypeElement.innerHTML = '<b>Belum selesai dibaca</b>';
   });
 
   formSearchBookDataElement.addEventListener('submit', (event) => {
@@ -51,7 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener(SAVED_EVENT, () => {
-    console.log(localStorage.getItem(STORAGE_KEY));
+    notificationElement.style.display = 'block';
+    notificationElement.innerText = notificationMessage;
+
+    setTimeout(() => {
+      notificationElement.style.display = 'none';
+    }, 3000);
   });
 
   if (isStorageExist()) {
@@ -75,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     books.push(bookObject);
     
     document.dispatchEvent(new Event(RENDER_EVENT));
+    notificationMessage = 'Data buku berhasil di tambahkan';
     saveBookData();
   }
 
@@ -152,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bookTarget.isCompleted = true;
     document.dispatchEvent(new Event(RENDER_EVENT));
+    notificationMessage = 'Data buku berhasil di pindah';
     saveBookData();
   }
 
@@ -162,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bookTarget.isCompleted = false;
     document.dispatchEvent(new Event(RENDER_EVENT));
+    notificationMessage = 'Data buku berhasil di pindah';
     saveBookData();
   }
 
@@ -172,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     books.splice(bookTarget, 1);
     document.dispatchEvent(new Event(RENDER_EVENT));
+    notificationMessage = 'Data buku berhasil di hapus';
     saveBookData();
   }
 

@@ -109,6 +109,18 @@ main {
   cursor: pointer;
 }
 
+.notification {
+  display: none;
+  width: 100%;
+  padding: 10px;
+  background: #22BB33;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 12px;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
 .search-container {
   width: 100%;
   border: 1px solid black;
